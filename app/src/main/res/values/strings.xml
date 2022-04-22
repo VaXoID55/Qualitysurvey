@@ -8,17 +8,14 @@
     <string name="button_save">Сохраняем в файл</string>
 
     <!-- Preference Titles -->
-    <string name="survey_header">Подписи</string>
+    <string name="survey_header">Настройки заголовка</string>
     <string name="sync_header">Sync</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">Название опроса</string>
     <string name="reply_title">Default reply action</string>
+    <string name="title_activity_list_answer">ListAnswerActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>

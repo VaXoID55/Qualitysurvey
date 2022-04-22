@@ -21,4 +21,47 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!--    Стиль для кнопок позитива-->
+
+    <style name="ButtonStyleOfGood" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:background">@android:color/holo_green_light</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorLink">#0BFF15</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:verticalScrollbarPosition">left</item>
+        <item name="android:visibility">visible</item>
+    </style>
+    <!--    Стиль для кнопок негатива-->
+    <style name="ButtonStyleOfBad" parent="@style/ButtonStyleOfGood">
+        <item name="android:background">@android:color/holo_red_dark</item>
+        <item name="android:textColor">@android:color/background_light</item>
+    </style>
+
+    <style name="ButtonStyleOfGoodLanding" parent="@style/ButtonStyleOfGood">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:text">@string/button_good</item>
+    </style>
+    <style name="ButtonStyleOfBadLanding" parent="@style/ButtonStyleOfBad">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:text">@string/button_bad</item>
+    </style>
+
+    <style name="Widget.AppTheme.NoActionBar.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="Widget.AppTheme.NoActionBar.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+
 </resources>

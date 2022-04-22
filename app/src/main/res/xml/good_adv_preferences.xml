@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:key="good_adv_pref"
+        android:title="Параметры Позитива">
+
+        <EditTextPreference
+            android:defaultValue="24"
+            android:key="Font_size_good_buttons"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:inputType="numberDecimal"
+            android:digits="0123456789"
+            android:title="Размер шрифта кнопок"
+            android:dialogTitle="По умолчанию: 24"
+            app:useSimpleSummaryProvider="true"/>
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

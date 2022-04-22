@@ -1,82 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:id="@+id/LayoutCaption"
+    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:layout_width="match_parent"
     android:keepScreenOn="true"
     tools:context=".MainActivity">
-
-    <Button
-        android:id="@+id/button_bad"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@android:color/holo_red_dark"
-        android:text="@string/button_bad"
-        android:textColor="@android:color/background_light"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:verticalScrollbarPosition="right"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_good"
-        app:layout_constraintTop_toBottomOf="@+id/caption_text"
-        tools:targetApi="ice_cream_sandwich" />
-
     <TextView
         android:id="@+id/caption_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="20sp"
+        android:gravity="center"
         android:text="@string/name_survey"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.038"
-        tools:viewBindingType="TextView" />
+        android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/button_good"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@android:color/holo_green_light"
-        android:text="@string/button_good"
-        android:textColorLink="@android:color/black"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:verticalScrollbarPosition="left"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button_bad"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/caption_text"
-        tools:targetApi="ice_cream_sandwich" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/LayoutButtons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/button_setup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/app_name"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_manage"
-        tools:visibility="gone" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineSeparateScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"
+            />
+
+        <Button
+            style="@style/ButtonStyleOfGoodLanding"
+            android:id="@+id/button_good_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guidelineSeparateScreen"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/button_good_2"
+            />
+        <Button
+            style="@style/ButtonStyleOfGoodLanding"
+            android:id="@+id/button_good_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guidelineSeparateScreen"
+            app:layout_constraintTop_toBottomOf="@id/button_good_1"
+            app:layout_constraintBottom_toTopOf="@id/button_good_3"
+            />
+        <Button
+            style="@style/ButtonStyleOfGoodLanding"
+            android:id="@+id/button_good_3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guidelineSeparateScreen"
+            app:layout_constraintTop_toBottomOf="@id/button_good_2"
+            app:layout_constraintBottom_toTopOf="@id/button_good_4"
+            />
+        <Button
+            style="@style/ButtonStyleOfGoodLanding"
+            android:id="@+id/button_good_4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guidelineSeparateScreen"
+            app:layout_constraintTop_toBottomOf="@id/button_good_3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            style="@style/ButtonStyleOfBadLanding"
+            android:id="@+id/button_bad_1"
+            app:layout_constraintStart_toStartOf="@id/guidelineSeparateScreen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/button_bad_2"
+            />
+        <Button
+            style="@style/ButtonStyleOfBadLanding"
+            android:id="@+id/button_bad_2"
+            app:layout_constraintStart_toStartOf="@id/guidelineSeparateScreen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_bad_1"
+            app:layout_constraintBottom_toTopOf="@id/button_bad_3"
+            />
+        <Button
+            style="@style/ButtonStyleOfBadLanding"
+            android:id="@+id/button_bad_3"
+            app:layout_constraintStart_toStartOf="@id/guidelineSeparateScreen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_bad_2"
+            app:layout_constraintBottom_toTopOf="@id/button_bad_4"
+            />
+        <Button
+            style="@style/ButtonStyleOfBadLanding"
+            android:id="@+id/button_bad_4"
+            app:layout_constraintStart_toStartOf="@id/guidelineSeparateScreen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_bad_3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+
+
+<!--            style="@style/ButtonStyleOfGood"-->
+
+
+
+<!--            app:layout_constraintBottom_toTopOf="@+id/button_good_2"-->
+
+
+<!--        <Button-->
+<!--            android:id="@+id/button_good_2"-->
+<!--            style="@style/ButtonStyleOfGood"-->
+<!--            android:text="@string/button_good"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/button_good_1"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/button_good_3"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/guidelineSeparateScreen"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            tools:targetApi="ice_cream_sandwich" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button_good_3"-->
+<!--            style="@style/ButtonStyleOfGoodLanding"-->
+<!--            android:text="@string/button_good"-->
+<!--            android:width="100dp"-->
+<!--            app:layout_constraintRight_toLeftOf="@id/guidelineSeparateScreen"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/button_good_2"-->
+<!--            tools:targetApi="ice_cream_sandwich" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button_good_4"-->
+<!--            style="@style/ButtonStyleOfGood"-->
+<!--            android:text="@string/button_good"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/button_good_3"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/guidelineSeparateScreen"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            tools:targetApi="ice_cream_sandwich" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button_bad_1"-->
+<!--            style="@style/ButtonStyleOfBad"-->
+<!--            android:text="@string/button_good"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/guidelineSeparateScreen"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/button_bad_2"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            tools:targetApi="ice_cream_sandwich" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button_bad_2"-->
+<!--            style="@style/ButtonStyleOfBad"-->
+<!--            android:text="@string/button_good"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/button_bad_1"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/button_bad_3"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            tools:targetApi="ice_cream_sandwich" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button_bad_3"-->
+<!--            style="@style/ButtonStyleOfBad"-->
+<!--            android:text="@string/button_good"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/button_bad_2"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/button_bad_4"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            tools:targetApi="ice_cream_sandwich" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button_bad_4"-->
+<!--            style="@style/ButtonStyleOfBad"-->
+<!--            android:text="@string/button_good"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/button_bad_3"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            tools:targetApi="ice_cream_sandwich" />-->
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

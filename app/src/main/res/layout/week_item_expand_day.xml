@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="horizontal"
+              android:id="@+id/lv_Types_Item"
+              android:padding="2dp"
+              android:layout_width="match_parent"
+              android:layout_height="23dp">
+  <TextView
+      android:id="@+id/tvValue"
+      android:layout_width="wrap_content"
+      android:minWidth="200dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:text="Я доволен" />
+
+  <TextView
+      android:id="@+id/tvCount"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintRight_toRightOf="@id/lv_Types_Item"
+      app:layout_constraintEnd_toEndOf="@id/lv_Types_Item"
+      android:layout_gravity="end"
+      tools:text=" -   15" />
+  <TextView
+      android:id="@+id/textView3"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      tools:text="@tools:sample/lorem" />
+</LinearLayout>

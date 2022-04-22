@@ -1,10 +1,9 @@
 package ru.vaxoid.qualitysurvey
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.preference.PreferenceManager
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -13,14 +12,9 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.Toast
-import androidx.core.graphics.blue
-import androidx.dynamicanimation.animation.DynamicAnimation
-import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.activity_main.*
-import ru.vaxoid.qualitysurvey.SetupActivity.SettingsFragment
-import ru.vaxoid.testsql.db.AnswerToDb
-import ru.vaxoid.testsql.db.MyDbManager
-import kotlin.math.absoluteValue
+import ru.vaxoid.qualitysurvey.db.AnswerToDb
+import ru.vaxoid.qualitysurvey.db.MyDbManager
 
 
 const val TAG = "MyActivity"
@@ -35,52 +29,43 @@ class MainActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON )
 
         setContentView(R.layout.activity_main)
-
-        button_bad.setOnClickListener(this::onClickButtons)
-        button_good.setOnClickListener(this::onClickButtons)
-
-        button_setup.setOnClickListener(this::onClickSetup)
+        //button_setup.setOnClickListener(this::onClickSetup)
+        createButtons()
+        caption_text.setOnLongClickListener{
+            onClickSetup(it)
+            }
 
         myDBManager.openDB()
     }
 
     override fun onResume() {
-        loadCaptions()
+        createButtons()
         super.onResume()
     }
 
-    private fun onClickButtons(view: View) {
+    private fun onClickGBButtons(view:View, typeButton: Int) {
         val txt = (view as Button).text
-        val id = (view as Button).id
-        Log.i(TAG, "Click button: $txt, $id")
-        //view.isEnabled = false
-        button_bad.isEnabled = false
-        button_good.isEnabled = false
-        when (view.id) {
+        //showToast("$txt - ТЕСТ - $typeButton")
 
-            button_bad.id -> {
+        val answer = AnswerToDb()
+        answer.type = typeButton
+        answer.valText = txt as String
+        myDBManager.insertToDb(answer)
+        animateButton(view)
 
-                val answer = AnswerToDb()
-                answer.value=answer.ANSWER_NEGATIVE
-                myDBManager.insertToDb(answer)
-            }
-            R.id.button_good -> {
-                val answer = AnswerToDb()
-                answer.value=answer.ANSWER_POSITIVE
-                myDBManager.insertToDb(answer)
-            }
-        }
+    }
+
+    private fun animateButton(view: View) {
 
         val animBut = AnimationUtils.loadAnimation(this, R.anim.rotate)
+//        val animBut = AnimationUtils.loadAnimation(this, R.anim.downfall)
         view.bringToFront()
         animBut.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationRepeat(animation: Animation?) {
             }
 
             override fun onAnimationEnd(animation: Animation?) {
-                //view.isEnabled = true
-                button_bad.isEnabled = true
-                button_good.isEnabled = true
+                view.isEnabled = true
             }
 
             override fun onAnimationStart(animation: Animation?) {
@@ -89,11 +74,12 @@ class MainActivity : AppCompatActivity() {
         view.startAnimation(animBut)
     }
 
-    fun onClickSetup(view: View){
+    private fun onClickSetup(view: View):Boolean{
         val scoreIntent = Intent(this, ScoreActivity::class.java)
         startActivity(scoreIntent)
-        button_setup.visibility = View.GONE
+        //button_setup.visibility = View.GONE
         Log.i(TAG, "New Intent: $intent")
+        return true;
 
     }
 
@@ -106,30 +92,68 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) or (keyCode == KeyEvent.KEYCODE_MENU)) {
-            button_setup.visibility != button_setup.visibility
-            when(button_setup.visibility) {
-                View.VISIBLE -> {button_setup.visibility=View.GONE}
-                View.GONE -> {button_setup.visibility=View.VISIBLE}
-            }
-                //(TODO("Добавить скрытие кнопки через время, отдельная сопрограмма"))
-        }
+//        if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) or (keyCode == KeyEvent.KEYCODE_MENU)) {
+//            //button_setup.visibility != button_setup.visibility
+////            when(button_setup.visibility) {
+////                View.VISIBLE -> {button_setup.visibility=View.GONE}
+////                View.GONE -> {button_setup.visibility=View.VISIBLE
+////                    button_setup.bringToFront()}
+////            }
+//                //(TODO("Добавить скрытие кнопки через время, отдельная сопрограмма"))
+//        }
         if (keyCode == KeyEvent.KEYCODE_BACK){
             finishAffinity()
         }
         return super.onKeyUp(keyCode, event)
     }
 
-    private fun loadCaptions() {
+    private fun createButtons() {
         //Читаем настройки заголовков
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this /* Activity context */)
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, true) //Строка для установки дефолтных значений
+        PreferenceManager.setDefaultValues(this, R.xml.bad_adv_preferences, true)
+        PreferenceManager.setDefaultValues(this, R.xml.good_adv_preferences, true)
+
+        val cnt_button_good = sharedPreferences.getInt("button_good_count", 1)
+        val cnt_button_bad = sharedPreferences.getInt("button_bad_count", 1)
+
+        Log.i(TAG, "Set param buttons good ($cnt_button_good) and bad ($cnt_button_bad)")
+
+            for (i in 1..4) {
+                var idString = "button_good_$i"
+                var buttonID = resources.getIdentifier(idString, "id", packageName)
+
+                with (findViewById<View>(buttonID)) {
+                    setOnClickListener {
+                        onClickGBButtons(it, 1)
+                    }
+                if (i<=cnt_button_good) {
+                   this.visibility = View.VISIBLE
+                   (this as Button).text = sharedPreferences.getString("Title_button_good_$i", "Доволен").toString()
+                   this.textSize = sharedPreferences.getString("Font_size_good_buttons", "10")!!.toFloat()
+                }else {
+                    this.visibility = View.GONE
+                }
+                }
+
+                idString = "button_bad_$i"
+                buttonID = resources.getIdentifier(idString, "id", packageName)
+
+                with (findViewById<View>(buttonID)) {
+                    setOnClickListener {
+                        onClickGBButtons(it, 0)
+                    }
+                    if (i<=cnt_button_bad) {
+                        this.visibility = View.VISIBLE
+                        (this as Button).text = sharedPreferences.getString("Title_button_bad_$i", "Не доволен").toString()
+                        this.textSize = sharedPreferences.getString("Font_size_bad_buttons", "10")!!.toFloat()
+                    }else {
+                        this.visibility = View.GONE
+                    }
+                }
+            }
 
         caption_text.text = sharedPreferences.getString("Title_survey", "").toString()
-        button_good.text = sharedPreferences.getString("Title_button_good", "").toString()
-        button_bad.text = sharedPreferences.getString("Title_button_bad", "").toString()
-        button_good.textSize = sharedPreferences.getString("Font_size_buttons", "")!!.toFloat()
-        button_bad.textSize = sharedPreferences.getString("Font_size_buttons", "")!!.toFloat()
         caption_text.textSize = sharedPreferences.getString("Font_size_title", "")!!.toFloat()
 
         if (sharedPreferences.getBoolean("Max_screen_on", true )){
@@ -140,6 +164,8 @@ class MainActivity : AppCompatActivity() {
             Log.i(TAG,"Устанавливаем обычную яркость")
             window.attributes.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE
         }
+
+        guidelineSeparateScreen.setGuidelinePercent((sharedPreferences.getInt("Split_percent",50)).toFloat()/100)
     }
 
 }
