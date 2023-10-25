@@ -3,19 +3,22 @@ package ru.vaxoid.qualitysurvey
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.*
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.preference.EditTextPreference
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
+import ru.vaxoid.qualitysurvey.databinding.SettingsActivityBinding
 
 private const val TITLE_TAG = "settingsActivityTitle"
 
 class SetupActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
+    private lateinit var binding: SettingsActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.settings_activity)
+        binding = SettingsActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()

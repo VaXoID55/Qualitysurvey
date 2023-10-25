@@ -1,0 +1,32 @@
+{
+  "alarms" :
+{
+  "emailSetup" : {
+  "name": "mail.ru",
+  "smtp": "smtp.mail.ru:465",
+  "login": "test",
+  "password": "Qwerty_1234",
+  "defaultReceiver": "lvs83@mail.ru"
+},
+"alarmDay": {
+"enabledDate": "10.02.2023",
+"lastSend": "12.10.2023",
+"receivers": "lvs83@mail.ru"
+},
+"alarmWeek": {
+"enabledDate" : null,
+"lastSend": "12.10.2023",
+"receivers": "lvs83@mail.ru"
+},
+"alarmMonth": {
+"enabledDate": null,
+"lastSend" : "12.10.2023",
+"receivers": "lvs83@mail.ru"
+},
+"alarm_any_1": {
+"dateStart": "12.10.2023",
+"dateEnd": "12.10.2023",
+"receivers": "lvs83@mail.ru"
+}
+}
+}

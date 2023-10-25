@@ -4,14 +4,16 @@ package ru.vaxoid.qualitysurvey
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.BaseAdapter
+import android.widget.ListView
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -120,7 +122,7 @@ class MyAdapter(private val context: Context, private val arrayList: ArrayList<C
         return position.toLong()
     }
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
-        var convertView = convertView
+        var convertView: View
 
         convertView = LayoutInflater.from(context).inflate(R.layout.week_item_expand_day, parent, false)
 

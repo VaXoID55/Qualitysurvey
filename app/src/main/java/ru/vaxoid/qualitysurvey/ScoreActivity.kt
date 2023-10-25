@@ -10,15 +10,14 @@ import android.widget.CalendarView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_score.*
 import ru.vaxoid.qualitysurvey.databinding.ActivityScoreBinding
-import ru.vaxoid.qualitysurvey.db.*
+import ru.vaxoid.qualitysurvey.db.AnswerDaySum
+import ru.vaxoid.qualitysurvey.db.MyDbManager
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ScoreActivity : AppCompatActivity() {
     lateinit var binding: ActivityScoreBinding
@@ -31,20 +30,20 @@ class ScoreActivity : AppCompatActivity() {
         binding = ActivityScoreBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        answerCalendar.firstDayOfWeek = Calendar.MONDAY //Настраиваем календарь на понедельник
+        binding.answerCalendar.firstDayOfWeek = Calendar.MONDAY //Настраиваем календарь на понедельник
 
-        answerCalendar.setOnDateChangeListener(this::onDataChangeListener)
-        onDataChangeListener(answerCalendar,0,0,0)
+        binding.answerCalendar.setOnDateChangeListener(this::onDataChangeListener)
+        onDataChangeListener(binding.answerCalendar,0,0,0)
 
-        buttonShowSetup.setOnClickListener{
+        binding.buttonShowSetup.setOnClickListener{
             val setupIntent = Intent(this, SetupActivity::class.java)
             startActivity(setupIntent)
             Log.i(TAG, "New Intent: $setupIntent")
         }
 
-        buttonSaveToFile.setOnClickListener(this::omButtonSaveClick)
+        binding.buttonSaveToFile.setOnClickListener(this::omButtonSaveClick)
 
-        rcView.setOnTouchListener(object : View.OnTouchListener {
+        binding.rcView.setOnTouchListener(object : View.OnTouchListener {
 
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
 //                Log.i(TAG,"childCount " + rcView.childCount.toString())
@@ -99,31 +98,31 @@ class ScoreActivity : AppCompatActivity() {
 
     private fun onDataChangeListener(view:CalendarView, year:Int, month:Int, dayOfMont:Int) {
         val cal = Calendar.getInstance()
-            val cDate = Date(view.date)//Выбранная дата
-            val weekStart: String
-            val weekEnd: String
-            cal.time = cDate;
-            view.firstDayOfWeek = Calendar.MONDAY //Настраиваем календарь на понедельник
-           adapter.clearAnswerWeek()
+        val cDate = Date(view.date)//Выбранная дата
+        val weekStart: String
+        val weekEnd: String
+        cal.time = cDate;
+        view.firstDayOfWeek = Calendar.MONDAY //Настраиваем календарь на понедельник
+        adapter.clearAnswerWeek()
 //           adapterExpand.clearAnswerWeek()
-           initRcView()
-           when (cDate.day) {
-               0 -> {
-                   weekEnd = SimpleDateFormat("yyyy-MM-dd").format(cal.time)
-                   cal.add(Calendar.DATE, -6)
-                   weekStart = SimpleDateFormat("yyyy-MM-dd").format(cal.time)
-               }
-               else -> { // обратите внимание на блок
-                   cal.add(Calendar.DATE, -cDate.day+1)
-                   weekStart = SimpleDateFormat("yyyy-MM-dd").format(cal.time)
-                   cal.add(Calendar.DATE, 6)
-                   weekEnd = SimpleDateFormat("yyyy-MM-dd").format(cal.time)
-               }
-           }
-           val dataList : ArrayList<AnswerDaySum> = myDBManager.readDbByDate(weekStart,weekEnd )
-           dataList.forEach{
-               adapter.addAnswerWeek(AnswerWeek( it.day,it.val_negative,it.val_positive,false,it.answersInDay))
-           }
+        initRcView()
+        when (cDate.day) {
+            0 -> {
+                weekEnd = SimpleDateFormat("yyyy-MM-dd").format(cal.time)
+                cal.add(Calendar.DATE, -6)
+                weekStart = SimpleDateFormat("yyyy-MM-dd").format(cal.time)
+            }
+            else -> { // обратите внимание на блок
+                cal.add(Calendar.DATE, -cDate.day+1)
+                weekStart = SimpleDateFormat("yyyy-MM-dd").format(cal.time)
+                cal.add(Calendar.DATE, 6)
+                weekEnd = SimpleDateFormat("yyyy-MM-dd").format(cal.time)
+            }
+        }
+        val dataList : ArrayList<AnswerDaySum> = myDBManager.readDbByDate(weekStart,weekEnd )
+        dataList.forEach{
+            adapter.addAnswerWeek(AnswerWeek( it.day,it.val_negative,it.val_positive,false,it.answersInDay))
+        }
 
     }
 

@@ -5,13 +5,9 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.Toast
-import ru.vaxoid.qualitysurvey.ScoreActivity
 import ru.vaxoid.qualitysurvey.TAG
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MyDbManager( context: Context) {
     val myDbHelper = MyDBHelper(context)
@@ -41,11 +37,11 @@ class MyDbManager( context: Context) {
 
             while (cursor?.moveToNext()!!){
                 val dte :Date = SimpleDateFormat("yyyy-MM-dd").parse(cursor?.getString(cursor.getColumnIndex("answer_date")))
-                var answerList : ArrayList<CollTextAnswerCntInDay> = fillCollTextAnswerCntInDay(dte)
+                val answerList : ArrayList<CollTextAnswerCntInDay> = fillCollTextAnswerCntInDay(dte)
                 val answerDaySum = AnswerDaySum(
                     dte,
-                    cursor?.getInt(cursor.getColumnIndex("Neg")),
-                    cursor?.getInt(cursor.getColumnIndex("Pos")),
+                    cursor.getInt(cursor.getColumnIndex("Neg")),
+                    cursor.getInt(cursor.getColumnIndex("Pos")),
                     answerList)
                 Log.i(TAG,answerDaySum.toString() )
                 Log.i(TAG,answerDaySum.answersInDay.toString() )
@@ -69,9 +65,9 @@ class MyDbManager( context: Context) {
 
         while (cursor?.moveToNext()!!) {
             resDataList.add(CollTextAnswerCntInDay(
-                cursor?.getString(cursor.getColumnIndex("answer_val")),
-                cursor?.getInt(cursor.getColumnIndex("cnt")),
-                cursor?.getInt(cursor.getColumnIndex("answer_type"))
+                cursor.getString(cursor.getColumnIndex("answer_val")),
+                cursor.getInt(cursor.getColumnIndex("cnt")),
+                cursor.getInt(cursor.getColumnIndex("answer_type"))
                 )
             )
             Log.i(TAG,"Добавлено в CollTextAnswerCntInDay: "+resDataList.toString())

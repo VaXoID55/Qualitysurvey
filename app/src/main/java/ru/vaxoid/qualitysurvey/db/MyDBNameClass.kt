@@ -3,7 +3,6 @@ package ru.vaxoid.qualitysurvey.db
 import android.provider.BaseColumns
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 object MyDBNameClass {
     const val TABLE_NAME = "answers"
@@ -14,7 +13,7 @@ object MyDBNameClass {
     const val COLUMN_NAME_TYPE = "answer_type"
 
 
-    const val DATABASE_VERSION = 2
+    const val DATABASE_VERSION = 3
     const val DATABASE_NAME = "MyAnswers.db"
 
     const val CREATE_TABLE =
@@ -37,6 +36,18 @@ object MyDBNameClass {
                // "WHERE answer_date BETWEEN '2021-10-29' AND '2021-10-30'\n" +
                 " GROUP by $COLUMN_NAME_DATE"
     const val SQL_DROP_VIEW = "DROP VIEW \"view_answers_date\";"
+
+//    const val ALARM_TABLE_NAME = "alarm_events"
+//    const val ALARM_COLUMN_PARAMS = "params"
+//    const val ALARM_COLUMN_ENABLE = "enable_date"
+//    const val ALARM_COLUMN_SEND_TIME = "send_time"
+
+//    const val UPDATE_DB_TO_v3 = "" +
+//            "CREATE TABLE IF NOT EXISTS $ALARM_TABLE_NAME " +
+//            "${BaseColumns._ID} INTEGER PRIMARY KEY," +
+//            "$ALARM_COLUMN_PARAMS TEXT," + //d,w,m (DAY,WEEK, MOUNTH) ; c,p (CURRENT, PREVIOS); time; days;
+//            "$ALARM_COLUMN_ENABLE TEXT," + //дата активации. Если пусто, то disable
+//            "$ALARM_COLUMN_SEND_TIME TEXT"  //время последней отправки
 
 }
 

@@ -4,24 +4,27 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_list_answer.*
+import ru.vaxoid.qualitysurvey.databinding.ActivityListAnswerBinding
 import ru.vaxoid.qualitysurvey.db.MyDbManager
 
 class ListAnswerActivity : AppCompatActivity() {
     private val myDBManager = MyDbManager(this)
+    private lateinit var binding: ActivityListAnswerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_answer)
+        //setContentView(R.layout.activity_list_answer)
+        binding = ActivityListAnswerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val arguments = intent.extras
         val answerDay = arguments!!["AnswerDay"].toString()
         val answerVal = arguments!!["AnswerVal"].toString()
         val answerType = arguments!!["AnswerType"].toString().toInt()
 
-        tvCaption.text = "Дата: $answerDay  -  \"$answerVal\""
-        if (answerType==1) {tvCaption.setBackgroundResource(R.color.bgItem_Good)}
-        else {tvCaption.setBackgroundResource(R.color.bgItem_Bad)}
+        binding.tvCaption.text = "Дата: $answerDay  -  \"$answerVal\""
+        if (answerType==1) {binding.tvCaption.setBackgroundResource(R.color.bgItem_Good)}
+        else {binding.tvCaption.setBackgroundResource(R.color.bgItem_Bad)}
 
         //Заполняем массив адаптера
         val dataList : Array<String?> = myDBManager.fillListAnswersValInDay(answerDay,answerVal )

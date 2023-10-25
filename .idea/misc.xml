@@ -3,6 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/VaXoID/StudioProjects/Qualitysurvey/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.152" />
+        <entry key="..\:/Users/VaXoID/StudioProjects/Qualitysurvey/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.152" />
+        <entry key="..\:/Users/VaXoID/StudioProjects/Qualitysurvey/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.152" />
+        <entry key="..\:/Users/VaXoID/StudioProjects/Qualitysurvey/app/src/main/res/drawable/ic_launcher_background.xml" value="0.152" />
+        <entry key="..\:/Users/VaXoID/StudioProjects/Qualitysurvey/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.152" />
+        <entry key="..\:/Users/VaXoID/StudioProjects/Qualitysurvey/app/src/main/res/layout/activity_list_answer.xml" value="0.35517241379310344" />
+        <entry key="..\:/Users/VaXoID/StudioProjects/Qualitysurvey/app/src/main/res/layout/activity_main.xml" value="0.4271523178807947" />
+        <entry key="..\:/Users/VaXoID/StudioProjects/Qualitysurvey/app/src/main/res/layout/activity_score.xml" value="0.25" />
+        <entry key="..\:/Users/VaXoID/StudioProjects/Qualitysurvey/app/src/main/res/layout/settings_activity.xml" value="0.34105960264900664" />
+        <entry key="..\:/Users/VaXoID/StudioProjects/Qualitysurvey/app/src/main/res/layout/week_item.xml" value="0.3672014260249554" />
+        <entry key="..\:/Users/VaXoID/StudioProjects/Qualitysurvey/app/src/main/res/layout/week_item_expand_day.xml" value="0.559375" />
+        <entry key="..\:/Users/VaXoID/StudioProjects/Qualitysurvey/app/src/main/res/xml/bad_adv_preferences.xml" value="0.559375" />
+        <entry key="..\:/Users/VaXoID/StudioProjects/Qualitysurvey/app/src/main/res/xml/good_adv_preferences.xml" value="0.559375" />
+        <entry key="..\:/Users/VaXoID/StudioProjects/Qualitysurvey/app/src/main/res/xml/root_preferences.xml" value="0.559375" />
         <entry key="..\:/Users/Vadim/AndroidStudioProjects/Qualitysurvey/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.174" />
         <entry key="..\:/Users/Vadim/AndroidStudioProjects/Qualitysurvey/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/Vadim/AndroidStudioProjects/Qualitysurvey/app/src/main/res/drawable/roundedbutton.xml" value="0.14635416666666667" />
@@ -35,7 +49,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -1,9 +1,7 @@
 package ru.vaxoid.qualitysurvey
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.preference.PreferenceManager
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -12,7 +10,9 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
+import ru.vaxoid.qualitysurvey.databinding.ActivityMainBinding
 import ru.vaxoid.qualitysurvey.db.AnswerToDb
 import ru.vaxoid.qualitysurvey.db.MyDbManager
 
@@ -21,17 +21,20 @@ const val TAG = "MyActivity"
 
 class MainActivity : AppCompatActivity() {
     private val myDBManager = MyDbManager(this)
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN )
         window.setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON )
 
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+//        setContentView(R.layout.activity_main)
         //button_setup.setOnClickListener(this::onClickSetup)
         createButtons()
-        caption_text.setOnLongClickListener{
+        binding.captionText.setOnLongClickListener{
             onClickSetup(it)
             }
 
@@ -52,7 +55,6 @@ class MainActivity : AppCompatActivity() {
         answer.valText = txt as String
         myDBManager.insertToDb(answer)
         animateButton(view)
-
     }
 
     private fun animateButton(view: View) {
@@ -153,8 +155,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-        caption_text.text = sharedPreferences.getString("Title_survey", "").toString()
-        caption_text.textSize = sharedPreferences.getString("Font_size_title", "")!!.toFloat()
+        binding.captionText.text = sharedPreferences.getString("Title_survey", "").toString()
+        binding.captionText.textSize = sharedPreferences.getString("Font_size_title", "")!!.toFloat()
 
         if (sharedPreferences.getBoolean("Max_screen_on", true )){
             Log.i(TAG,"Включить максимальную яркость")
@@ -165,8 +167,7 @@ class MainActivity : AppCompatActivity() {
             window.attributes.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE
         }
 
-        guidelineSeparateScreen.setGuidelinePercent((sharedPreferences.getInt("Split_percent",50)).toFloat()/100)
+        binding.guidelineSeparateScreen.setGuidelinePercent((sharedPreferences.getInt("Split_percent",50)).toFloat()/100)
     }
 
 }
-
