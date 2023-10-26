@@ -18,6 +18,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.mail.internet.InternetAddress
 
 class ScoreActivity : AppCompatActivity() {
     lateinit var binding: ActivityScoreBinding
@@ -41,7 +42,7 @@ class ScoreActivity : AppCompatActivity() {
             Log.i(TAG, "New Intent: $setupIntent")
         }
 
-        binding.buttonSaveToFile.setOnClickListener(this::omButtonSaveClick)
+        binding.buttonSaveToFile.setOnClickListener(this::onButtonSaveClick)
 
         binding.rcView.setOnTouchListener(object : View.OnTouchListener {
 
@@ -55,9 +56,25 @@ class ScoreActivity : AppCompatActivity() {
             }
         })
 
+        /**
+         * Тест по отправке почты
+         */
+        binding.buttonSendStats.setOnClickListener {
+
+            val auth = EmailService.UserPassAuthenticator("lvs83@mail.ru", "argCxUcD3e1UmEUfh8e0")
+            val to = listOf(InternetAddress("lvs83@mail.ru"))
+            val from = InternetAddress("lvs83@mail.ru")
+            val email = EmailService.Email(auth, to, from, "Test Subject", "Hello Body World")
+            val emailService = EmailService("smtp.mail.ru", 465)
+
+           // GlobalScope.launch {
+                emailService.send(email)
+           // }
+
+        }
     }
 
-    private fun omButtonSaveClick(view: View) {
+     fun onButtonSaveClick(view: View) {
         TODO("Not yet implemented")
         val file:String = "Survey_data.csv"
         var data:String = ""
@@ -101,7 +118,7 @@ class ScoreActivity : AppCompatActivity() {
         val cDate = Date(view.date)//Выбранная дата
         val weekStart: String
         val weekEnd: String
-        cal.time = cDate;
+        cal.time = cDate
         view.firstDayOfWeek = Calendar.MONDAY //Настраиваем календарь на понедельник
         adapter.clearAnswerWeek()
 //           adapterExpand.clearAnswerWeek()
@@ -128,6 +145,3 @@ class ScoreActivity : AppCompatActivity() {
 
 
 }
-
-
-
