@@ -18,7 +18,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.mail.internet.InternetAddress
+
 
 class ScoreActivity : AppCompatActivity() {
     lateinit var binding: ActivityScoreBinding
@@ -61,17 +61,64 @@ class ScoreActivity : AppCompatActivity() {
          */
         binding.buttonSendStats.setOnClickListener {
 
-            val auth = EmailService.UserPassAuthenticator("lvs83@mail.ru", "argCxUcD3e1UmEUfh8e0")
-            val to = listOf(InternetAddress("lvs83@mail.ru"))
-            val from = InternetAddress("lvs83@mail.ru")
-            val email = EmailService.Email(auth, to, from, "Test Subject", "Hello Body World")
-            val emailService = EmailService("smtp.mail.ru", 465)
-
-           // GlobalScope.launch {
-                emailService.send(email)
-           // }
-
+            val mailIntent = Intent(this, MailActivity::class.java).apply {
+                startActivity(this)
+            }
+            Log.i(TAG, "New Intent: $mailIntent")
         }
+
+//            val auth = EmailServiceOld.UserPassAuthenticator("lvs83@mail.ru", "argCxUcD3e1UmEUfh8e0")
+//            val to = listOf(InternetAddress("lvs83@mail.ru"))
+//            val from = InternetAddress("lvs83@mail.ru")
+//            val email = EmailServiceOld.Email(auth, to, from, "Test Subject", "Hello Body World")
+//            val emailServiceOld = EmailServiceOld("smtp.mail.ru", 465)
+//
+//           // GlobalScope.launch {
+//                emailServiceOld.send(email)
+//           // }
+
+            //Рабочий блок отправки TODO Перенести
+//
+//
+//            var mEmailService : EmailService
+//
+//
+//            mEmailService = EmailService("smtp.mail.ru", 587) //465
+//                .setEnableSelfSigned(true)
+//                .setStartTls(true)
+//                .setAuth(
+//                    EmailService.Authenticator(
+//                        "lvs83@mail.ru",
+//                        "argCxUcD3e1UmEUfh8e0"
+//                    )
+//                )
+//showToast("Попытка отправить")
+//            try {
+//
+//                mEmailService.reset()
+//                    .setFrom("lvs83@mail.ru")
+//                    .setToList("lvs83@mail.ru")
+//                    .setBccList("")
+//                    .setSubject("mySubject")
+//                    .setHtmlBody("notice.buildHTML()")
+//                    .setTxtBody("notice.buildTXT()")
+//                    //.setAttachments(attachment)
+//                mEmailService.send(true) { e: java.lang.Exception? ->
+//                    if (e != null) {
+//
+//                        return@send
+//                    }
+//                    Log.i(TAG, "Отправка почты")
+//                }
+//            } catch (e: MessagingException) {
+//                Log.i(TAG, e.toString())
+//            } catch (e: IOException) {
+//                Log.i(TAG, e.toString())
+//            }
+//
+//
+//
+//        }
     }
 
      fun onButtonSaveClick(view: View) {

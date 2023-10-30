@@ -17,5 +17,9 @@
     <string name="title_activity_list_answer">ListAnswerActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_mail">MailActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Настройка</string>
+    <string name="title_schedule">Расписание</string>
 
 </resources>

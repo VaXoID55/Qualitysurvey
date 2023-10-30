@@ -27,11 +27,11 @@ data class AnswerWeek (val Day: Date, val NegVal:Int, val PosVal:Int, var expand
 val ArrayNumDays: Array<String> = arrayOf("Воскресенье","Понедельник", "Вторник", "Среда","Четверг", "Пятница","Суббота")
 
 class WeekAdapter: RecyclerView.Adapter<WeekAdapter.WeekHolder>() {
-    val answerWeekList = ArrayList<AnswerWeek>()
-    var adapterLV: MyAdapter? = null
+    private val answerWeekList = ArrayList<AnswerWeek>()
+    private var adapterLV: MyAdapter? = null
 
     class WeekHolder(item:View): RecyclerView.ViewHolder(item) {
-        val binding = WeekItemBinding.bind(item)
+        private val binding = WeekItemBinding.bind(item)
         var linearLayout : ConstraintLayout = item.findViewById(R.id.linearLayout)
         var expendableLayout : RelativeLayout = item.findViewById(R.id.expandable_layout)
         var lvTypes: ListView = item.findViewById(R.id.lv_Types)
@@ -75,7 +75,7 @@ class WeekAdapter: RecyclerView.Adapter<WeekAdapter.WeekHolder>() {
             @SuppressLint("ClickableViewAccessibility")
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 Log.i(TAG,"Touch clMain.setOnTouchListener (CHILD-1)")
-                var lvTypeItem : ConstraintLayout = v!!.findViewById(R.id.lv_Types_Item)
+                val lvTypeItem : ConstraintLayout = v!!.findViewById(R.id.lv_Types_Item)
                 lvTypeItem.parent.requestDisallowInterceptTouchEvent(true)
                 //findViewById(R.id.child_scroll).getParent().requestDisallowInterceptTouchEvent(false);
                 return v.onTouchEvent(event)
@@ -121,10 +121,10 @@ class MyAdapter(private val context: Context, private val arrayList: ArrayList<C
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
-        var convertView: View
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
-        convertView = LayoutInflater.from(context).inflate(R.layout.week_item_expand_day, parent, false)
+        val convertView =
+            LayoutInflater.from(context).inflate(R.layout.week_item_expand_day, parent, false)
 
         (convertView.findViewById(R.id.tvValue) as TextView).text = arrayList[position].answerTxt
         (convertView.findViewById(R.id.tvCount) as TextView).text = arrayList[position].answerCnt.toString()
@@ -138,7 +138,7 @@ class MyAdapter(private val context: Context, private val arrayList: ArrayList<C
         convertView.setOnClickListener{
            // Toast.makeText(it.context, arrayList[position].answerTxt, Toast.LENGTH_SHORT).show()
             // создание объекта Intent для запуска SecondActivity
-            val intentList :Intent = Intent(this.context, ListAnswerActivity::class.java)
+            val intentList = Intent(this.context, ListAnswerActivity::class.java)
             // передача объекта с ключом "hello" и значением "Hello World"
             intentList.putExtra("AnswerDay", _day)
             intentList.putExtra("AnswerVal", arrayList[position].answerTxt)
